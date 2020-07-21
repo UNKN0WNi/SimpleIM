@@ -1,5 +1,6 @@
 import com.im.codec.MyDecoder;
 import com.im.codec.MyEncoder;
+import com.im.handler.IdleHandler;
 import com.im.handler.ServerGroupHandler;
 import com.im.handler.ServerSingleHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -30,6 +31,7 @@ public final class IMServer {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline p = ch.pipeline();
+                            p.addLast(new IdleHandler());
                             p.addLast(new LoggingHandler(LogLevel.INFO));
                             //消息解码
                             p.addLast(new MyEncoder());
