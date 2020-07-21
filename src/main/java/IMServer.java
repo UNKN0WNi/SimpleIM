@@ -1,3 +1,7 @@
+import com.im.codec.MyDecoder;
+import com.im.codec.MyEncoder;
+import com.im.handler.ServerGroupHandler;
+import com.im.handler.ServerSingleHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -31,7 +35,8 @@ public final class IMServer {
                             p.addLast(new MyEncoder());
                             p.addLast(new MyDecoder(1024, 4, 4, 0, 0));
                             //业务处理
-                            p.addLast(new IMServerHandler());
+                            p.addLast(new ServerSingleHandler());
+                            p.addLast(new ServerGroupHandler());
                         }
                     });
             //绑定端口

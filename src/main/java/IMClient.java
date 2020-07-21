@@ -1,3 +1,6 @@
+import com.im.codec.MyDecoder;
+import com.im.codec.MyEncoder;
+import com.im.handler.ClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -25,7 +28,7 @@ public final class IMClient {
                      p.addLast(new LoggingHandler(LogLevel.INFO));
                      p.addLast(new MyEncoder());
                      p.addLast(new MyDecoder(1024, 4, 4, 0, 0));
-                     p.addLast(new IMClientHandler());
+                     p.addLast(new ClientHandler());
                  }
              });
 

@@ -1,3 +1,7 @@
+package com.im.handler;
+
+import com.im.constant.CommandConst;
+import com.im.util.GsonUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -8,7 +12,7 @@ import java.util.UUID;
  * traffic between the echo client and server by sending the first message to
  * the server.
  */
-public class IMClientHandler extends SimpleChannelInboundHandler<MyProtocol> {
+public class ClientHandler extends SimpleChannelInboundHandler<MyProtocol> {
 
 
     static String msg="I am echo message";
@@ -17,14 +21,15 @@ public class IMClientHandler extends SimpleChannelInboundHandler<MyProtocol> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        String entityString = GsonUtil.GsonString(new MessageEntity(UUID.randomUUID().toString(), "阿巴", msg));
+        String entityString = GsonUtil.GsonString(new MessageEntity(UUID.randomUUID().toString(), "阿巴", CommandConst.CREATE_GROUP,"group",msg));
         ctx.writeAndFlush(new MyProtocol(entityString.getBytes().length,entityString.getBytes()));
     }
 
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MyProtocol myProtocol) throws Exception {
-        System.out.println(myProtocol.getContent());
+        MessageEntity messageEntity = GsonUtil.GsonToBean(new String(myProtocol.getContent(), "UTF-8"), MessageEntity.class);
+        System.out.println(messageEntity.getUserName()+" say: "+messageEntity.getMessage());
     }
 
     @Override

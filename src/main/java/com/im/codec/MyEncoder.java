@@ -1,4 +1,6 @@
-import com.google.gson.Gson;
+package com.im.codec;
+
+import com.im.handler.MyProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -8,7 +10,6 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @since 2020-06-01 11:10
  */
 public class MyEncoder extends MessageToByteEncoder<MyProtocol> {
-    static Gson gson = new Gson();
 
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, MyProtocol myProtocol, ByteBuf byteBuf)  {

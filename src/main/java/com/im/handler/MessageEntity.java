@@ -1,3 +1,5 @@
+package com.im.handler;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +17,10 @@ public class MessageEntity {
     String userId;
 
     String userName;
+
+    String command;
+
+    String targetId;
 
     String message;
 
